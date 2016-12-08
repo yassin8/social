@@ -95,7 +95,7 @@ $scriptProvisionNginx = <<SCRIPT
     listen 80 default_server;
     listen [::]:80 default_server ipv6only=on;
 
-    server_name local.api.agiom.com;
+    server_name local.social.com;
     root /vagrant/web;
 
     location / {
@@ -129,28 +129,16 @@ $scriptProvisionNginx = <<SCRIPT
 
 SCRIPT
 
-$scriptProvisionMysql = <<SCRIPT
-
-    echo "[Install MySQL] ..."
-    export DEBIAN_FRONTEND=noninteractive
-
-    echo mysql-server mysql-server/root_password password root | sudo debconf-set-selections
-    echo mysql-server mysql-server/root_password_again password root | sudo debconf-set-selections
-
-    apt-get -y --force-yes install mysql-server
-
-SCRIPT
-
 Vagrant.require_version ">= 1.5"
 
 Vagrant.configure("2") do |config|
 
     config.vm.provider :virtualbox do |v|
         v.gui = false
-        v.name = "api"
+        v.name = "social"
         v.customize [
             "modifyvm", :id,
-            "--name", "api",
+            "--name", "social",
             "--memory", 1024,
             "--natdnshostresolver1", "on",
             "--cpus", 1,
@@ -162,13 +150,13 @@ Vagrant.configure("2") do |config|
     config.vm.box_url = "https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/14.04/providers/virtualbox.box"
 
     config.vm.network :private_network, ip: "192.168.33.105"
-    #config.vm.hostname = "local.api.agiom.com"
+    #config.vm.hostname = "local.social.com"
     config.ssh.forward_agent = true
 
     config.vm.provision :shell, inline: $scriptProvisionSystem
     config.vm.provision :shell, inline: $scriptProvisionPhp
     config.vm.provision :shell, inline: $scriptProvisionNginx
-    config.vm.provision :shell, inline: $scriptProvisionMysql
+    config.vm.provision :shell, :path => "database.sh"
 
     config.vm.synced_folder ".", "/vagrant", create: true, group: "www-data", owner: "www-data"
 end
