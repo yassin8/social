@@ -43,7 +43,8 @@ $scriptProvisionPhp = <<SCRIPT
         php7.0-dom \
         php7.0-sybase \
         php7.0-odbc \
-        php7.0-mbstring
+        php7.0-mbstring \
+        php-pgsql
 
         echo "[Configure /etc/php/7.0/fpm/php.ini] ..."
         sed -i 's#;date.timezone =#date.timezone = Europe/Paris#g' /etc/php/7.0/fpm/php.ini
