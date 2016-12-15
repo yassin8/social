@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Category
+ * Course
  *
- * @ORM\Table(name="category")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
+ * @ORM\Table(name="course")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CourseRepository")
  */
-class Category
+class Course
 {
     /**
      * @var int
@@ -28,6 +28,13 @@ class Category
      */
     private $name;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="theme", type="string", length=255, nullable=true)
+     */
+    private $theme;
+
 
     /**
      * Get id
@@ -44,7 +51,7 @@ class Category
      *
      * @param string $name
      *
-     * @return Category
+     * @return Course
      */
     public function setName($name)
     {
@@ -62,4 +69,29 @@ class Category
     {
         return $this->name;
     }
+
+    /**
+     * Set theme
+     *
+     * @param string $theme
+     *
+     * @return Course
+     */
+    public function setTheme($theme)
+    {
+        $this->theme = $theme;
+
+        return $this;
+    }
+
+    /**
+     * Get theme
+     *
+     * @return string
+     */
+    public function getTheme()
+    {
+        return $this->theme;
+    }
 }
+

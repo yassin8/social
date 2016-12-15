@@ -94,4 +94,3 @@ class Course
         return $this->theme;
     }
 }
-

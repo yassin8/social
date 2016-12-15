@@ -44,7 +44,7 @@ $scriptProvisionPhp = <<SCRIPT
         php7.0-sybase \
         php7.0-odbc \
         php7.0-mbstring \
-        php-pgsql
+        php7.0-pgsql
 
         echo "[Configure /etc/php/7.0/fpm/php.ini] ..."
         sed -i 's#;date.timezone =#date.timezone = Europe/Paris#g' /etc/php/7.0/fpm/php.ini
@@ -140,7 +140,7 @@ Vagrant.configure("2") do |config|
         v.customize [
             "modifyvm", :id,
             "--name", "social",
-            "--memory", 1024,
+            "--memory", 2048,
             "--natdnshostresolver1", "on",
             "--cpus", 1,
         ]
