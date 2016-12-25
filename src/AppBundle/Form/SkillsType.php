@@ -1,21 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Firas
- * Date: 21/12/2016
- * Time: 19:04
- */
 
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Course;
-use AppBundle\Entity\User;
+use AppBundle\Entity\Skills;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType
+class SkillsType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -23,13 +18,10 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('username')
-            ->add('usernameCanonical')
-            ->add('email')
-            ->add('password')
-            ->add('save', SubmitType::class)
-        ;
+        $builder->add('course', EntityType::class, array(
+            'class' => 'AppBundle:User',
+            'choice_label' => 'username',
+        ));
     }
 
     /**
@@ -38,7 +30,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => User::class,
+            'data_class' => Skills::class,
         ));
     }
 }
