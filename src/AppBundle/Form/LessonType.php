@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Firas
- * Date: 25/12/2016
- * Time: 21:02
- */
 
 namespace AppBundle\Form;
 use AppBundle\Entity\Lesson;
