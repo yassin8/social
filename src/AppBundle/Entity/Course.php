@@ -35,6 +35,11 @@ class Course
      */
     private $theme;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Skills", mappedBy="course")
+     */
+    protected $skills;
+
 
     /**
      * Get id

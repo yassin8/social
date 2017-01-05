@@ -19,9 +19,10 @@ class SkillsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('course', EntityType::class, array(
-            'class' => 'AppBundle:User',
-            'choice_label' => 'username',
-        ));
+            'class' => Course::class,
+            'choice_label' => 'name',
+        ))
+        ->add('level');
     }
 
     /**
