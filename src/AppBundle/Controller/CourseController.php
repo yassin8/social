@@ -19,7 +19,7 @@ class CourseController extends Controller
     {
         $course = new Course();
         $form = $this->createForm(CourseType::class, $course);
-
+//,array('attr' => array('class' => 'form-control','style' => 'margin-bottom:15px'))
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -27,12 +27,32 @@ class CourseController extends Controller
             $em->persist($course);
             $em->flush();
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('list_course');
         }
 
         // replace this example code with whatever you need
         return $this->render('AppBundle:Course:new.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/course/get", name="list_course")
+     */
+    public function ListCourseAction(Request $request)
+    {
+        $courses = $this->getDoctrine()
+            ->getRepository('AppBundle:Course')
+            ->findAll();
+
+        // createQueryBuilder() automatically selects FROM AppBundle:Product
+        // and aliases it to "p"
+        //$courses =$request->query->get('course');
+        return $this->render('AppBundle:Course:index.html.twig', array(
+            'courses' => $courses
+        ));
+
     }
 }

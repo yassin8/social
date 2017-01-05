@@ -32,7 +32,7 @@ class Skills
     /**
      * @var Course
      *
-     * @ORM\ManyToOne(targetEntity="Course")
+     * @ORM\ManyToOne(targetEntity="Course", inversedBy="skills")
      * @ORM\JoinColumn(name="course_id_fk", referencedColumnName="id")
      */
     private $course;

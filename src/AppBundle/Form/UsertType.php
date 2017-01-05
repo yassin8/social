@@ -1,16 +1,21 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Firas
+ * Date: 27/12/2016
+ * Time: 22:03
+ */
 
 namespace AppBundle\Form;
-
-use AppBundle\Entity\Course;
 use AppBundle\Entity\Skills;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\user;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class SkillsType extends AbstractType
+class UsertType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -18,11 +23,13 @@ class SkillsType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('course', EntityType::class, array(
-            'class' => Course::class,
-            'choice_label' => 'name',
-        ))
-        ->add('level');
+        $builder
+            ->add('username')
+            ->add('email')
+        ;
+        $builder->add('skills', CollectionType::class, array(
+            'entry_type' => SkillsType::class
+        ));
     }
 
     /**
