@@ -19,7 +19,7 @@ class CourseController extends Controller
     {
         $course = new Course();
         $form = $this->createForm(CourseType::class, $course);
-
+//,array('attr' => array('class' => 'form-control','style' => 'margin-bottom:15px'))
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
