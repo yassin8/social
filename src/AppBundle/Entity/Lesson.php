@@ -210,6 +210,4 @@ class Lesson
     {
         return $this->address;
     }
-
-
 }
