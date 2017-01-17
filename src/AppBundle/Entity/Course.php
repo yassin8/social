@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +41,13 @@ class Course
      */
     protected $skills;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->skills = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -97,5 +105,39 @@ class Course
     public function getTheme()
     {
         return $this->theme;
+    }
+
+    /**
+     * Add skill
+     *
+     * @param \AppBundle\Entity\Skills $skill
+     *
+     * @return Course
+     */
+    public function addSkill(Skills $skill)
+    {
+        $this->skills[] = $skill;
+
+        return $this;
+    }
+
+    /**
+     * Remove skill
+     *
+     * @param \AppBundle\Entity\Skills $skill
+     */
+    public function removeSkill(Skills $skill)
+    {
+        $this->skills->removeElement($skill);
+    }
+
+    /**
+     * Get skills
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSkills()
+    {
+        return $this->skills;
     }
 }
