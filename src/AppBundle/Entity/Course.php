@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,13 +40,6 @@ class Course
      */
     protected $skills;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->skills = new ArrayCollection();
-    }
 
     /**
      * Get id
@@ -139,5 +131,15 @@ class Course
     public function getSkills()
     {
         return $this->skills;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
     }
 }
