@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>cours</th>
+                <th>theme</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cours in users %}
+                <tr>
+                    <th scope ="row">{{ cours.id }}</th>
+                    <td>{{ cours.name }}</td>
+                    <td>{{ cours.name }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" id="form_Go" name="form[Go]" class="btn btn-primary">Go</button>
+        {{ form_end(form) }}
+    </div>7
+
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+
+                <th>First Name</th>
+
+                <th>Email</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in profilesSearch %}
+
+                <tr>
+                    <th scope ="row">{{ user.id }}</th>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td> {% for skill in user.teacherSkills %}
+                            {{ skill.course }}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
