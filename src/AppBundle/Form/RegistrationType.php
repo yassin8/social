@@ -12,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 /**
  * Class RegistrationType
@@ -46,7 +48,15 @@ class RegistrationType extends AbstractType
             ->add('teacherSkills', CollectionType::class, array(
                 'entry_type' => SkillsType::class
             ))
-            ->add('description', TextareaType::class);
+            ->add('description', TextareaType::class)
+            ->remove('username');
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            $form = $event->getForm();
+            $user = $form->getData();
+            $user->setUsername($user->getEmail());
+            $form->setData($user);
+        });
     }
 
     /**
