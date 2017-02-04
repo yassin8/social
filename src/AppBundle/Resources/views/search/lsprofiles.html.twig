@@ -9,47 +9,10 @@
         {{ form_widget(form.search, {
             'attr': {'class': 'form-control', 'role': 'search'}}) }}
         <button class="btn btn-default" id="form_Go" name="search" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-        {#<form class="navbar-form" role="search">#}
-        {#<div class="input-group">#}
-        {#<input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">#}
-        {#<div class="input-group-btn">#}
-        {#<button class="btn btn-default" id="form_Go" name="search" type="submit"><i class="glyphicon glyphicon-search"></i></button>#}
-        {#</div>#}
-        {#</div>#}
-        {#</form>#}
 
         {{ form_end(form) }}
     </div>
 
-    {#<div class="container">#}
-    {#<table class="table">#}
-    {#<thead>#}
-    {#<tr>#}
-    {#<th>#</th>#}
-    {#<th>First Name</th>#}
-    {#<th>Compétence</th>#}
-    {#<th>Description</th>#}
-    {#<th>Pays</th>#}
-    {#</tr>#}
-    {#</thead>#}
-    {#<tbody>#}
-    {##}
-    {#{% for user in profilesSearch %}#}
-
-    {#<tr>#}
-    {#<th scope ="row">{{ user.id }}</th>#}
-    {#<td>{{ user.firstname }}</td>#}
-    {#<td> {% for skill in user.teacherSkills %}#}
-    {#{{ skill.course }}#}
-    {#{% endfor %}#}
-    {#</td>#}
-    {#<td>{{ user.description }}</td>#}
-    {#<td>{{ user.country }}</td>#}
-    {#</tr>#}
-    {#{% endfor %}#}
-    {#</tbody>#}
-    {#</table>#}
-    {#</div>#}
 
     <div class="list-group">
         {% for user in profilesSearch %}

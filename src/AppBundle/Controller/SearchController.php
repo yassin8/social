@@ -30,7 +30,7 @@ class SearchController extends Controller
         $form = $this->createFormBuilder($lsUsers)
             ->add('search')
             ->getForm();
-           // ->add('Go', SubmitType::class);
+
         $profilesSearch  = null;
         $form->handleRequest($request);
 
@@ -40,8 +40,6 @@ class SearchController extends Controller
             $profilesSearch = $this->getDoctrine()
                 ->getRepository('AppBundle:User')
                 ->findByName($search);
-            /*$em->persist($lsUsers);
-            $em->flush();*/
 
             return $this->render('AppBundle:Search:lsprofiles.html.twig', [
                 'form' => $form->createView(),
@@ -53,24 +51,7 @@ class SearchController extends Controller
             'form' => $form->createView(),
             'profilesSearch' => $profilesSearch
         ]);
-        /*
 
-        $form = $this->createForm(UsertType::class, $lsUsers);
-
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($lsUsers);
-            $em->flush();
-
-            return $this->redirectToRoute('list_users');
-        }
-        return $this->render('AppBundle:Search:profile.html.twig', array(
-
-        ));
-        */
     }
     /**
      * @param Request $request
@@ -83,9 +64,6 @@ class SearchController extends Controller
             ->getRepository('AppBundle:users')
             ->findAll();
 
-        // createQueryBuilder() automatically selects FROM AppBundle:Product
-        // and aliases it to "p"
-        //$courses =$request->query->get('course');
         return $this->render('AppBundle:search:lsprofiles.html.twig', array(
             'users' => $courses
         ));
@@ -98,14 +76,10 @@ class SearchController extends Controller
      */
     public function IndexUserAction(Request $request, $idProfile)
     {
-        //$idProfile = $request->attributes->get('idProfile');
         $profile = $this->getDoctrine()
             ->getRepository('AppBundle:User')
             ->find($idProfile);
 
-        // createQueryBuilder() automatically selects FROM AppBundle:Product
-        // and aliases it to "p"
-        //$courses =$request->query->get('course');
         return $this->render('AppBundle:search:profile.html.twig', array(
             'user' => $profile
         ));
