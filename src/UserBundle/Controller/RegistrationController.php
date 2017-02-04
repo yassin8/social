@@ -79,11 +79,5 @@ class RegistrationController extends BaseController
         ));
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
-
 
 }
