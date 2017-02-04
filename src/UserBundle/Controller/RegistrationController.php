@@ -3,8 +3,6 @@
 namespace UserBundle\Controller;
 
 use AppBundle\Entity\Skills;
-use AppBundle\Entity\User;
-use AppBundle\Form\RegistrationType;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;

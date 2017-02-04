@@ -44,7 +44,9 @@
             </div>
         </div>
 
+        <div class="container">
         {% block body %}{% endblock %}
+        </div>
         {% block javascripts %}
             {% javascripts '@bootstrap_js' %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
