@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container">
+
+        <div class="list-group">
+
+            <h5>{{ user.City}}</h5>
+            <h3>Member:</h3>
+                    <h4 class="list-group-item-heading"> {{ user.username}}</h4>
+                    <h3>Compétences:</h3>
+                    <p class="list-group-item-text">
+                        {% for skill in user.teacherSkills %}
+                            <li> {{ skill.course }}</li>
+                        {% endfor %}
+                    </p>
+                    <h4 class="list-group-item-text">
+                        {{ user.description}}</h4>
+
+
+
+        </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+

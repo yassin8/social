@@ -22,6 +22,7 @@ use Symfony\Component\Debug\Debug;
 $loader = require __DIR__.'/../app/autoload.php';
 Debug::enable();
 
+ini_set('max_execution_time', 300);
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
 $request = Request::createFromGlobals();
