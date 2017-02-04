@@ -29,8 +29,8 @@ class SearchController extends Controller
         $lsUsers = Array();
         $form = $this->createFormBuilder($lsUsers)
             ->add('search')
-            ->getForm()
-            ->add('Go', SubmitType::class);
+            ->getForm();
+           // ->add('Go', SubmitType::class);
         $profilesSearch  = null;
         $form->handleRequest($request);
 
@@ -43,13 +43,13 @@ class SearchController extends Controller
             /*$em->persist($lsUsers);
             $em->flush();*/
 
-            return $this->render('AppBundle:Search:profile.html.twig', [
+            return $this->render('AppBundle:Search:lsprofiles.html.twig', [
                 'form' => $form->createView(),
                 'profilesSearch' => $profilesSearch
             ]);
         }
 
-        return $this->render('AppBundle:Search:profile.html.twig', [
+        return $this->render('AppBundle:Search:lsprofiles.html.twig', [
             'form' => $form->createView(),
             'profilesSearch' => $profilesSearch
         ]);
@@ -88,6 +88,26 @@ class SearchController extends Controller
         //$courses =$request->query->get('course');
         return $this->render('AppBundle:search:lsprofiles.html.twig', array(
             'users' => $courses
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/profile/search/{idProfile}", name="get_id_profile")
+     */
+    public function IndexUserAction(Request $request, $idProfile)
+    {
+        //$idProfile = $request->attributes->get('idProfile');
+        $profile = $this->getDoctrine()
+            ->getRepository('AppBundle:User')
+            ->find($idProfile);
+
+        // createQueryBuilder() automatically selects FROM AppBundle:Product
+        // and aliases it to "p"
+        //$courses =$request->query->get('course');
+        return $this->render('AppBundle:search:profile.html.twig', array(
+            'user' => $profile
         ));
     }
 }
