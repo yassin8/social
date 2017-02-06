@@ -7,6 +7,8 @@
  */
 
 namespace AppBundle\Controller;
+use AppBundle\Entity\Message;
+use FOS\UserBundle\Mailer\Mailer;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use AppBundle\Entity\Course;
@@ -81,6 +83,42 @@ class SearchController extends Controller
             ->find($idProfile);
 
         return $this->render('AppBundle:search:profile.html.twig', array(
+            'user' => $profile
+        ));
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/profile/search/message/{idProfile}", name="send_profile_message")
+     */
+    public function MessageUserAction(Request $request, $idProfile)
+    {
+        $profile = $this->getDoctrine()
+            ->getRepository('AppBundle:User')
+            ->find($idProfile);
+
+        return $this->render('AppBundle:search:message.html.twig', array(
+            'user' => $profile
+        ));
+    }
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/profile/search/message/{idProfile}", name="send_profile_message")
+     */
+    public function MessagePostAction(Request $request, $idProfile,$Message)
+    {
+        $profile = $this->getDoctrine()
+            ->getRepository('AppBundle:User')
+            ->find($idProfile);
+        $message = new Message();
+        $studentUser= $this->getUser();
+        $message->setTeacher($idProfile);
+        $message->setStudent($studentUser);
+        $message->setDescription("hello");
+        return $this->render('AppBundle:search:message.html.twig', array(
             'user' => $profile
         ));
     }
