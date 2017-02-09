@@ -16,7 +16,9 @@
                     <h4 class="list-group-item-text">
                         {{ user.description}}</h4>
 
-
+            <div  class="btn-group" role="group" aria-label="...">
+                <a type="button" href="{{ path('new_message', {'idProfile': user.id}) }}" class="btn btn-default">Contacter</a>
+            </div>
 
         </div>
 </div>
