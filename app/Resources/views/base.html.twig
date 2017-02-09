@@ -13,8 +13,8 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
@@ -27,7 +27,7 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                         <kbd>{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</kbd>
-                        <a class="btn btn-success" href="{{ path('fos_user_security_logout') }}">
+                        <a class="btn btn-default" href="{{ path('fos_user_security_logout') }}">
                             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                         </a>
                     {% else %}
@@ -36,13 +36,6 @@
                 </div><!--/.navbar-collapse -->
             </div>
         </nav>
-
-        <div class="jumbotron">
-            <div class="container">
-                <h1>Take a course !</h1>
-                <p><a class="btn btn-primary btn-lg" href="{{ path('new_course') }}" role="button">Create course »</a></p>
-            </div>
-        </div>
 
         <div class="container">
         {% block body %}{% endblock %}
