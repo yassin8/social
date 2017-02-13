@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>objet</th>
+                <th>description</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for message in messages %}
+                <tr>
+                    <th scope ="row">{{ message.id }}</th>
+                    <td>{{ message.objet }}</td>
+                    <td>{{ message.description }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+{% endblock %}
