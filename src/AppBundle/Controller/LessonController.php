@@ -13,18 +13,16 @@ class LessonController extends Controller
 {
     /**
      * @param Request $request
+     * @param $idTeacher
+     *
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/lesson/new", name="new_lesson")
+     * @Route("/lesson/new/{idTeacher}", name="new_lesson")
      */
-    public function newLessonAction(Request $request)
+    public function newLessonAction(Request $request, $idTeacher)
     {
         $lesson = new Lesson();
         $user1= $this->getUser();
-        //$skills = $usr->getTeacherSkills();
-
-        //$user1 = new User();
-        $lesson->setTeacher($user1);
-        $user1->addTeacherLesson($lesson);
+        $lesson->setStudent($user1);
 
         $form = $this->createForm(LessonType::class,$lesson,array('label' => 1));
 
@@ -32,6 +30,8 @@ class LessonController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $teacher = $em->getRepository('AppBundle:User')->find($idTeacher);
+            $lesson->setTeacher($teacher);
             $em->persist($lesson);
             $em->flush();
 
@@ -54,10 +54,7 @@ class LessonController extends Controller
         $lessons = $this->getDoctrine()
             ->getRepository('AppBundle:Lesson')
             ->findAll();
-
-        // createQueryBuilder() automatically selects FROM AppBundle:Product
-        // and aliases it to "p"
-        //$courses =$request->query->get('course');
+        
         return $this->render('AppBundle:Lesson:index.html.twig', array(
             'lessons' => $lessons
         ));
