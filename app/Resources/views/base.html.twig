@@ -74,11 +74,12 @@
     </head>
     <hr>
         {% block body %}
+            {% block javascripts %}
+                {% javascripts '@bootstrap_js' %}
+                    <script type="text/javascript" src="{{ asset_url }}"></script>
+                {% endjavascripts %}
+            {% endblock %}
         {% endblock %}
-
-
-
-
 
     <footer>
         <p>© 2016 Company, Inc.</p>

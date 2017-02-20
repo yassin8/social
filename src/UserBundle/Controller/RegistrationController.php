@@ -11,8 +11,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 
 class RegistrationController extends BaseController
 {
