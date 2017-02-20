@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 <div class="container">
-
         <div class="list-group">
 
             <h5>{{ user.City}}</h5>
@@ -17,7 +16,8 @@
                         {{ user.description}}</h4>
 
             <div  class="btn-group" role="group" aria-label="...">
-                <a type="button" href="{{ path('new_message', {'idProfile': user.id}) }}" class="btn btn-default">Contacter</a>
+                <a href="{{ path('new_message', {'idProfile': user.id}) }}" class="btn btn-default">Contacter</a>
+                <a href="{{ path('new_lesson', {'idTeacher': user.id}) }}" class="btn btn-default"> Proposer une course</a>
             </div>
 
         </div>

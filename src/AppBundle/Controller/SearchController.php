@@ -1,24 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Firas
- * Date: 07/01/2017
- * Time: 21:15
- */
 
 namespace AppBundle\Controller;
-use AppBundle\Entity\Message;
-use FOS\UserBundle\Mailer\Mailer;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-use AppBundle\Entity\Course;
-use AppBundle\Form\CourseType;
-use AppBundle\Form\LessonType;
+use AppBundle\Entity\Message;
 use AppBundle\Form\UsertType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class SearchController
+ */
 class SearchController extends Controller
 {
     /**
@@ -37,8 +29,7 @@ class SearchController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-             $search =  $form->getData()['search'];
+            $search =  $form->getData()['search'];
             $profilesSearch = $this->getDoctrine()
                 ->getRepository('AppBundle:User')
                 ->findByName($search);
@@ -86,7 +77,6 @@ class SearchController extends Controller
             'user' => $profile
         ));
     }
-
 
     /**
      * @param Request $request

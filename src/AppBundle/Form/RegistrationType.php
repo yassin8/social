@@ -50,13 +50,6 @@ class RegistrationType extends AbstractType
             ))
             ->add('description', TextareaType::class)
             ->remove('username');
-
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
-            $form = $event->getForm();
-            $user = $form->getData();
-            $user->setUsername($user->getEmail());
-            $form->setData($user);
-        });
     }
 
     /**
