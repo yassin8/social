@@ -10,13 +10,15 @@ use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class RegistrationController extends BaseController
 {
     /**
      * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/user/register", name="new_member")
      *
-     * @return Response
      */
     public function registerAction(Request $request)
     {
