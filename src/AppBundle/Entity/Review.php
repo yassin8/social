@@ -22,6 +22,20 @@ class Review
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="comment", type="string", length=255, nullable=true)
+     */
+    private $comment;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="rank", type="integer")
+     */
+    private $rank;
+
+    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="teacherReviews")
@@ -38,21 +52,6 @@ class Review
     private $student;
 
     /**
-     * @var Lesson
-     *
-     * @ORM\ManyToOne(targetEntity="Lesson")
-     * @ORM\JoinColumn(name="lesson_id_fk", referencedColumnName="id")
-     */
-    private $lesson;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="score", type="integer")
-     */
-    private $score;
-
-    /**
      * Get id
      *
      * @return integer
@@ -63,27 +62,51 @@ class Review
     }
 
     /**
-     * Set score
+     * Set comment
      *
-     * @param integer $score
+     * @param string $comment
      *
      * @return Review
      */
-    public function setScore($score)
+    public function setComment($comment)
     {
-        $this->score = $score;
+        $this->comment = $comment;
 
         return $this;
     }
 
     /**
-     * Get score
+     * Get comment
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Set rank
+     *
+     * @param integer $rank
+     *
+     * @return Review
+     */
+    public function setRank($rank)
+    {
+        $this->rank = $rank;
+
+        return $this;
+    }
+
+    /**
+     * Get rank
      *
      * @return integer
      */
-    public function getScore()
+    public function getRank()
     {
-        return $this->score;
+        return $this->rank;
     }
 
     /**
@@ -93,7 +116,7 @@ class Review
      *
      * @return Review
      */
-    public function setTeacher(User $teacher = null)
+    public function setTeacher(\AppBundle\Entity\User $teacher = null)
     {
         $this->teacher = $teacher;
 
@@ -117,7 +140,7 @@ class Review
      *
      * @return Review
      */
-    public function setStudent(User $student = null)
+    public function setStudent(\AppBundle\Entity\User $student = null)
     {
         $this->student = $student;
 
@@ -132,29 +155,5 @@ class Review
     public function getStudent()
     {
         return $this->student;
-    }
-
-    /**
-     * Set lesson
-     *
-     * @param \AppBundle\Entity\Lesson $lesson
-     *
-     * @return Review
-     */
-    public function setLesson(Lesson $lesson = null)
-    {
-        $this->lesson = $lesson;
-
-        return $this;
-    }
-
-    /**
-     * Get lesson
-     *
-     * @return \AppBundle\Entity\Lesson
-     */
-    public function getLesson()
-    {
-        return $this->lesson;
     }
 }

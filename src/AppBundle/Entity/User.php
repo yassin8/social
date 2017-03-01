@@ -104,6 +104,16 @@ class User extends BaseUser
      */
     protected $teacherSkills;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="teacher")
+     */
+    protected $teacherReviews;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="student")
+     */
+    protected $studentReviews;
+
     public function __construct()
     {
         parent::__construct();
@@ -466,5 +476,73 @@ class User extends BaseUser
         $this->setUsername($email);
 
         return $this;
+    }
+
+    /**
+     * Add teacherReview
+     *
+     * @param \AppBundle\Entity\Review $teacherReview
+     *
+     * @return User
+     */
+    public function addTeacherReview(\AppBundle\Entity\Review $teacherReview)
+    {
+        $this->teacherReviews[] = $teacherReview;
+
+        return $this;
+    }
+
+    /**
+     * Remove teacherReview
+     *
+     * @param \AppBundle\Entity\Review $teacherReview
+     */
+    public function removeTeacherReview(\AppBundle\Entity\Review $teacherReview)
+    {
+        $this->teacherReviews->removeElement($teacherReview);
+    }
+
+    /**
+     * Get teacherReviews
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTeacherReviews()
+    {
+        return $this->teacherReviews;
+    }
+
+    /**
+     * Add studentReview
+     *
+     * @param \AppBundle\Entity\Review $studentReview
+     *
+     * @return User
+     */
+    public function addStudentReview(\AppBundle\Entity\Review $studentReview)
+    {
+        $this->studentReviews[] = $studentReview;
+
+        return $this;
+    }
+
+    /**
+     * Remove studentReview
+     *
+     * @param \AppBundle\Entity\Review $studentReview
+     */
+    public function removeStudentReview(\AppBundle\Entity\Review $studentReview)
+    {
+        $this->studentReviews->removeElement($studentReview);
+    }
+
+    /**
+     * Get studentReviews
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudentReviews()
+    {
+        return $this->studentReviews;
     }
 }
