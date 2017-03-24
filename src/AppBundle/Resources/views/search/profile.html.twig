@@ -10,8 +10,18 @@
                 <h1> {{ user.username}} {{ user.username}} </h1>
             </div>
 
+            <div class="container" style="text-align:center;align-content: center;max-width: 1000px;">
+                <div class="col-xs-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                        <img src="/img/profile/{{ user.id}}.jpg">
+                    </a>
+                </div>
+            </div>
+
                     <h4 class="list-group-item-text" style="text-align: center">
-                        {{ user.description}}</h4>
+                        {{ user.description}}
+                    </h4>
+
             <h3>Mots clès:</h3>
             <p class="list-group-item-text">
                 {% for skill in user.teacherSkills %}
