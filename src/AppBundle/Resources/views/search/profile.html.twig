@@ -16,7 +16,7 @@
                         {{ user.description}}</h4>
 
             <div  class="btn-group" role="group" aria-label="...">
-                <a href="{{ path('new_message', {'idProfile': user.id}) }}" class="btn btn-default">Contacter</a>
+                <a href="{{ path('new_discussion', {'idProfile': user.id}) }}" class="btn btn-default">Contacter</a>
                 <a href="{{ path('new_lesson', {'idTeacher': user.id}) }}" class="btn btn-default"> Proposer une course</a>
             </div>
 

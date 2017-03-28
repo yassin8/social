@@ -5,8 +5,8 @@ namespace AppBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * MessageRepository
+ * DiscussionRepository
  */
-class MessageRepository extends EntityRepository
+class DiscussionRepository extends EntityRepository
 {
 }

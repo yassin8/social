@@ -2,12 +2,15 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Discussion;
 use AppBundle\Entity\Message;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MessageType extends AbstractType
+class DiscussionType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,7 +19,11 @@ class MessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('message')
+            ->add('object')
+            ->add('messages', CollectionType::class, array(
+                'entry_type' => MessageType::class
+            ))
+            ->add('Send', SubmitType::class)
         ;
     }
 
@@ -26,7 +33,7 @@ class MessageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Message::class,
+            'data_class' => Discussion::class,
         ));
     }
 }

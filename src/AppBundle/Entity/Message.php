@@ -21,97 +21,41 @@ class Message
     private $id;
 
     /**
-     * @var User
+     * @var Discussion
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="teacherMessages")
-     * @ORM\JoinColumn(name="teacher_id_fk", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Discussion", inversedBy="messages")
+     * @ORM\JoinColumn(name="discussion_id_fk", referencedColumnName="id")
      */
-    private $teacher;
-
-    /**
-     * @var User
-     *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="studentMessages")
-     * @ORM\JoinColumn(name="student_id_fk", referencedColumnName="id")
-     */
-    private $student;
+    private $discussion;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=600, nullable=true)
+     * @ORM\Column(name="message", type="string", length=600, nullable=true)
      */
-    private $description;
+    private $message;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="objet", type="string", length=255, nullable=true)
+     * @ORM\Column(name="create_date", type="datetime")
      */
-    private $objet;
+    private $createDate;
 
     /**
-     * @return User
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id_fk", referencedColumnName="id")
      */
-    public function getTeacher()
-    {
-        return $this->teacher;
-    }
+    private $user;
 
     /**
-     * @param User $teacher
+     * Message constructor.
      */
-    public function setTeacher($teacher)
+    public function __construct()
     {
-        $this->teacher = $teacher;
-    }
-
-    /**
-     * @return User
-     */
-    public function getStudent()
-    {
-        return $this->student;
-    }
-
-    /**
-     * @param User $student
-     */
-    public function setStudent($student)
-    {
-        $this->student = $student;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @return string
-     */
-    public function getObjet()
-    {
-        return $this->objet;
-    }
-
-    /**
-     * @param string $objet
-     */
-    public function setObjet($objet)
-    {
-        $this->objet = $objet;
+        $this->createDate = new \DateTime();
     }
 
     /**
@@ -130,4 +74,67 @@ class Message
         $this->id = $id;
     }
 
+    /**
+     * @return Discussion
+     */
+    public function getDiscussion()
+    {
+        return $this->discussion;
+    }
+
+    /**
+     * @param Discussion $discussion
+     */
+    public function setDiscussion($discussion)
+    {
+        $this->discussion = $discussion;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param string $message
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreateDate()
+    {
+        return $this->createDate;
+    }
+
+    /**
+     * @param \DateTime $createDate
+     */
+    public function setCreateDate($createDate)
+    {
+        $this->createDate = $createDate;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
 }
