@@ -7,38 +7,49 @@
  */
 
 namespace AppBundle\Controller;
+use AppBundle\Entity\Discussion;
 use AppBundle\Entity\Message;
 use AppBundle\Entity\User;
+use AppBundle\Form\DiscussionType;
 use AppBundle\Form\MessageType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class MessageController extends Controller
 {
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/message/new/{idProfile}", name="new_message")
+     * @param int     $idProfile
+     *
+     * @return Response
+     * @Route("/discussion/new/{idProfile}", name="new_discussion")
      */
-    public function newMessageAction(Request $request,$idProfile)
+    public function newDiscussionAction(Request $request,$idProfile)
     {
+        $discussion = new Discussion();
         $message = new Message();
+        $discussion->addMessage($message);
 
-        $form = $this->createForm(MessageType::class, $message);
+        $form = $this->createForm(DiscussionType::class, $discussion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $user1= $this->getUser();
-            $message->setStudent($user1);
-            $message->setTeacher($em->getReference(User::class, $idProfile));
+            $user= $this->getUser();
+            $message = $discussion->getMessages()[0];
+            $message->setUser($user);
+            $message->setDiscussion($discussion);
+            $discussion->setStudent($user);
+            $discussion->setTeacher($em->getReference(User::class, $idProfile));
 
             $em->persist($message);
+            $em->persist($discussion);
             $em->flush();
 
-            return $this->redirectToRoute('list_message');
+            return $this->redirectToRoute('discussion_messages', array('id' => $discussion->getId()));
         }
 
         return $this->render('AppBundle:message:newmessage.html.twig', [
@@ -46,25 +57,69 @@ class MessageController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param int $id
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/discussion/{id}", name="discussion_messages")
+     */
+    public function showDiscussionAction(Request $request, $id)
+    {
+        $user = $this->getUser();
+
+        $discussion = $this->getDoctrine()
+            ->getRepository('AppBundle:Discussion')
+            ->find($id);
+        $discussionUser = $discussion->getStudent()->getId() ==  $this->getUser()->getId()
+            ? $discussion->getTeacher()
+            : $discussion->getStudent();
+
+        $discussionList1 = $this->getDoctrine()
+            ->getRepository('AppBundle:Discussion')
+            ->findByStudent($user);
+
+        $discussionList2 = $this->getDoctrine()
+            ->getRepository('AppBundle:Discussion')
+            ->findByTeacher($user);
+
+        $discussionList = $discussionList1 +  $discussionList2;
+
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+
+        return $this->render('AppBundle:Message:discussion.html.twig', array(
+            'discussion' => $discussion,
+            'form' => $form->createView(),
+            'discussion_list' => $discussionList,
+            'discussion_user' => $discussionUser,
+            'current_user' => $user,
+        ));
+    }
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/message/list", name="list_message")
+     * @param int     $discussionId
+     *
+     * @return Response
+     * @Route("/message/new/{discussionId}", name="new_message")
      */
-    public function ListMessageAction(Request $request)
+    public function newMessageAction(Request $request,$discussionId)
     {
-        $user1= $this->getUser();
-        $messages = $this->getDoctrine()
-            ->getRepository('AppBundle:Message')
-            ->findById($user1);
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $form->handleRequest($request);
 
-        // createQueryBuilder() automatically selects FROM AppBundle:Product
-        // and aliases it to "p"
-        //$courses =$request->query->get('course');
-        return $this->render('AppBundle:Message:listmessage.html.twig', array(
-            'messages' => $messages
-        ));
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $user = $this->getUser();
+            $message->setUser($user);
+            $message->setDiscussion($em->getReference(User::class, $discussionId));
 
+            $em->persist($message);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('discussion_messages', array('id' => $discussionId));
     }
 }
