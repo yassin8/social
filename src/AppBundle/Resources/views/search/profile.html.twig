@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<div class="container"style="max-width: 600px">
+<div class="container"style="width:100%;padding-right: 0px;padding-left: 0px">
         <div class="list-group">
 
             <h5>{{ user.City}}</h5>
             {#<h3>Member:</h3>#}
                     {#<h4 class="list-group-item-heading"> {{ user.username}}</h4>#}
-            <div class="page-header" style="text-align: center">
-                <h1> {{ user.username}} {{ user.username}} </h1>
+            <div class="page-header" style="text-align: center;background: #373942;padding-bottom:60px;padding-top: 30px;">
+                <h1 style="color: white;"> {{ user.username}} {{ user.username}} </h1>
             </div>
 
             <div class="container" style="text-align:center;align-content: center;max-width: 1000px;">
                 <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                        <img src="/img/profile/{{ user.id}}.jpg">
+                    <a href="#">
+                        <img src="/img/profile/{{ user.id}}.jpg" class="img-circle">
                     </a>
                 </div>
             </div>
