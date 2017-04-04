@@ -13,25 +13,27 @@
                 </a>
                 {#</div>#}
             </div>
-            <div class="page-header" style="text-align: center;background: white;padding-bottom:60px;padding-top: 30px;">
+            <div class="page-header" style="text-align: center;background: white;padding-bottom:0px;padding-top: 0px;">
                 <h1 style="color: color;"> {{ user.username}} {{ user.username}} </h1>
             </div>
 
 
+            <div  class="btn-group" role="group" aria-label="..." style="padding-left: 400px">
+                <a href="{{ path('new_message', {'idProfile': user.id}) }}" class="btn btn-default">Contacter</a>
+                <a href="{{ path('new_lesson', {'idTeacher': user.id}) }}" class="btn btn-default"> Proposer une course</a>
+            </div>
                 {#<section class="bg-base-800 quotes" style="background:#373942;">#}
-                    <h4 class="list-group-item-text" style="text-align: center;black: white;padding: 200px">
+                    <h4 class="list-group-item-text" style="text-align: center;black: white;padding-left: 200px;padding-right: 200px">
                         {{ user.description}}
                     </h4>
                 {#</section>#}
-            <h3>Mots clès:</h3>
-            <p class="list-group-item-text">
+
+            <div class="list-group-item-text" style="padding-left:200px ">
+                <h3>Mots clès:
                 {% for skill in user.teacherSkills %}
-            <li> {{ skill.course }}</li>
-            {% endfor %}
-            </p>
-            <div  class="btn-group" role="group" aria-label="...">
-                <a href="{{ path('new_message', {'idProfile': user.id}) }}" class="btn btn-default">Contacter</a>
-                <a href="{{ path('new_lesson', {'idTeacher': user.id}) }}" class="btn btn-default"> Proposer une course</a>
+                    <span class="label label-info"> {{ skill.course }}</span>
+                {% endfor %}
+                </h3>
             </div>
 
         </div>
