@@ -24,7 +24,11 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "twbs/bootstrap": "^3.3",
-        "symfony/assetic-bundle": "^2.8"
+        "symfony/assetic-bundle": "^2.8",
+        "php-http/curl-client": "^1.7",
+        "guzzlehttp/psr7": "^1.4",
+        "php-http/message": "^1.5",
+        "happyr/linkedin-bundle": "^0.2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

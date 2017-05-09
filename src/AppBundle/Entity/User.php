@@ -20,6 +20,11 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\Column(name="linkedin_id", type="string", length=50, nullable=true)
+     */
+    protected $linkedInId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="civility", type="string", length=50, nullable=true)
@@ -85,6 +90,13 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
@@ -113,6 +125,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Review", mappedBy="student")
      */
     protected $studentReviews;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Position", mappedBy="user")
+     */
+    private $positions;
 
     public function __construct()
     {
@@ -544,5 +561,87 @@ class User extends BaseUser
     public function getStudentReviews()
     {
         return $this->studentReviews;
+    }
+
+    /**
+     * Set linkedInId
+     *
+     * @param integer $linkedInId
+     *
+     * @return User
+     */
+    public function setLinkedInId($linkedInId)
+    {
+        $this->linkedInId = $linkedInId;
+
+        return $this;
+    }
+
+    /**
+     * Get linkedInId
+     *
+     * @return integer
+     */
+    public function getLinkedInId()
+    {
+        return $this->linkedInId;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return User
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Add position
+     *
+     * @param \AppBundle\Entity\Position $position
+     *
+     * @return User
+     */
+    public function addPosition(\AppBundle\Entity\Position $position)
+    {
+        $this->positions[] = $position;
+
+        return $this;
+    }
+
+    /**
+     * Remove position
+     *
+     * @param \AppBundle\Entity\Position $position
+     */
+    public function removePosition(\AppBundle\Entity\Position $position)
+    {
+        $this->positions->removeElement($position);
+    }
+
+    /**
+     * Get positions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPositions()
+    {
+        return $this->positions;
     }
 }

@@ -20,6 +20,9 @@ class AppKernel extends Kernel
 
             new AppBundle\AppBundle(),
             new UserBundle\UserBundle(),
+            new Http\HttplugBundle\HttplugBundle(),
+            new Happyr\LinkedInBundle\HappyrLinkedInBundle(),
+            new LinkedInBundle\LinkedInBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

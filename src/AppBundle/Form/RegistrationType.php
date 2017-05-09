@@ -31,24 +31,14 @@ class RegistrationType extends AbstractType
                     'Mr' => 'f',
                     'M' => 'm'
                 ),
-                'required'    => false,
+                'required' => false,
                 'placeholder' => 'Civility',
-                'empty_data'  => null
+                'empty_data' => null
             ))
             ->add('firstName', TextType::class)
             ->add('lastName', TextType::class)
-            ->add('birthDate', BirthdayType::class)
-            ->add('country', CountryType::class)
-            ->add('city', TextType::class)
-            ->add('zipCode', TextType::class)
-            ->add('address', TextType::class)
-            ->add('phone', TextType::class)
             ->add('username')
             ->add('email', EmailType::class)
-            ->add('teacherSkills', CollectionType::class, array(
-                'entry_type' => SkillsType::class
-            ))
-            ->add('description', TextareaType::class)
             ->remove('username');
     }
 
