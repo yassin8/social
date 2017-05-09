@@ -1,0 +1,4 @@
+services:
+#    linked_in.example:
+#        class: LinkedInBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

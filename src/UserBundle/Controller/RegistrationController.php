@@ -3,6 +3,8 @@
 namespace UserBundle\Controller;
 
 use AppBundle\Entity\Skills;
+use AppBundle\Form\RegistrationStep2Type;
+use AppBundle\Form\RegistrationStep3Type;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
@@ -57,7 +59,7 @@ class RegistrationController extends BaseController
                 $userManager->updateUser($user);
 
                 if (null === $response = $event->getResponse()) {
-                    $url = $this->generateUrl('fos_user_registration_confirmed');
+                    $url = $this->generateUrl('register_step_2', array('userId' => $user->getId()));
                     $response = new RedirectResponse($url);
                 }
 
@@ -79,5 +81,59 @@ class RegistrationController extends BaseController
         ));
     }
 
+    /**
+     * @param Request $request
+     * @param string $userId
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/user/register/step/2/{userId}", name="register_step_2")
+     */
+    public function registerStep2Action(Request $request, $userId)
+    {
+        $user = $this->getUser();
 
+        $form = $this->createForm(RegistrationStep2Type::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('register_step_3', array('userId' => $user->getId()));
+        }
+
+        return $this->render('AppBundle:User:Registration/register_content_step_2.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param string $userId
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/user/register/step/3/{userId}", name="register_step_3")
+     */
+    public function registerStep3Action(Request $request, $userId)
+    {
+        $user = $this->getUser();
+
+        $form = $this->createForm(RegistrationStep3Type::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('fos_user_registration_confirmed');
+        }
+
+        return $this->render('AppBundle:User:Registration/register_content_step_3.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user
+        ]);
+    }
 }

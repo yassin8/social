@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conversations List{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+    {{ form_start(form, {
+        'method': 'post',
+        'action': path('register_step_3', {'userId': user.id}),
+        'attr': {'class': 'form-horizontal'}})
+    }}
+        <div class="form-group row">
+            {{ form_label(form.description, null, {'label_attr': {'class': 'col-2 col-form-label'}}) }}
+            {{ form_errors(form.description) }}
+            <div class="col-10">
+                {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+
+        {% for formskill in form.teacherSkills %}
+            <div class="form-group">
+                {{ form_label(formskill.course, null, {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                {{ form_errors(formskill.course) }}
+                <div class="col-sm-4">
+                    {{ form_widget(formskill.course, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(formskill.level, null, {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                {{ form_errors(formskill.level) }}
+                <div class="col-sm-4">
+                    {{ form_widget(formskill.level, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div>
+            <input type="submit" class="btn btn-default" value="{{ 'registration.submit'|trans }}" />
+        </div>
+    {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

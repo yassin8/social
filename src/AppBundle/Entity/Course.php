@@ -142,4 +142,12 @@ class Course
     {
         return $this->name;
     }
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->skills = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 }
